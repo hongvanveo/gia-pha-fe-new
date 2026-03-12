@@ -1,62 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400..700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
 :root {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-heading: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Lora', serif;
+  --font-heading: 'Cormorant Garamond', serif; /* Ancient, classical font with strong VN support */
 
-  /* Bright Airy Structural Theme */
-  --bg-body: #F3F4F6; /* Cool Gray 100 */
-  --surface: #FFFFFF;
-  --surface-solid: #FFFFFF;
-  --border: #E5E7EB; /* Cool Gray 200 */
-  --muted: #6B7280; /* Cool Gray 500 */
-  --text-dark: #1F2937; /* Gray 800 */
+  /* Historical Theme */
+  --bg-body: #D8B498; 
+  --surface: rgba(242, 216, 179, 0.85); /* Slightly transparent parchment */
+  --surface-solid: #EAD0B3;
+  --border: #8A4830;  /* Dark terracotta line art */
+  --muted: #815B3E; 
+  --text-dark: #2C1A14; /* Deep brownish black ink */
 
-  --primary: #6ba292; /* Teal */
-  --primary-hover: #588e7e; /* Dark Teal */
-  --primary-light: rgba(107, 162, 146, 0.1);
+  --primary: #8A4830; 
+  --primary-hover: #5C2D1F; 
+  --primary-light: rgba(138, 72, 48, 0.15);
 
-  --accent: #ff9b71; /* Coral */
-  --accent-hover: #e58760; /* Dark Coral */
-  --bg-mint: #e4fde1;
-  --bg-yellow: #ffdc7c;
+  --accent: #2C4B66; 
+  --accent-hover: #1A2F42; 
+  --bg-mint: #EAD0B3;
+  --bg-yellow: #D8B498;
 
-  /* Backup of previous "Vibrant Ivory" theme (for reversion):
-     --bg-body: #f4ead5; --surface: #fdf6e9; --primary: #8b0000; --accent: #b8860b; 
-  */
+  --red: #8A4830;
+  --red-hover: #5C2D1F;
 
-  --red: #d0011b;
-  --red-hover: #b00014;
+  --danger: #8A4830;
+  --danger-hover: #5C2D1F;
 
-  --danger: #ef4444;
-  --danger-hover: #dc2626;
+  /* Rigid, ink-block shadows instead of soft floats */
+  --shadow-sm: 2px 2px 0px var(--text-dark);
+  --shadow-md: 4px 4px 0px var(--text-dark);
+  --shadow-lg: 6px 6px 0px var(--text-dark);
+  --shadow-float: 8px 8px 0px var(--text-dark);
 
-  --shadow-sm: 0 1px 2px rgba(60, 40, 20, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(60, 40, 20, 0.08), 0 2px 4px -1px rgba(60, 40, 20, 0.04);
-  --shadow-lg: 0 10px 15px -3px rgba(60, 40, 20, 0.08), 0 4px 6px -2px rgba(60, 40, 20, 0.04);
-  --shadow-float: 0 20px 25px -5px rgba(60, 40, 20, 0.1), 0 10px 10px -5px rgba(60, 40, 20, 0.04);
+  /* Completely sharp/rigid structures */
+  --radius-md: 0px; 
+  --radius-lg: 0px;
+  --radius-xl: 0px;
 
-  --radius-md: 8px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
-
-  --transition: all 0.3s ease;
+  --transition: all 0.15s ease-out;
 
   --sidebar-width: 280px;
 
   /* Giaphadaiviet colors */
-  --gp-red: #8b0000;
-  --gp-gold: #ffd700;
-  --gp-paper: #f4ead5;
-  --gp-dark-red: #5e0000;
+  --gp-red: #8A4830;
+  --gp-gold: #BA8A5A;
+  --gp-paper: #F2D8B3;
+  --gp-dark-red: #5C2D1F;
 }
 
 body {
   margin: 0;
   background-color: var(--bg-body);
+  background-image: url('/ancient_parchment_bg.png');
+  background-attachment: fixed;
+  background-size: cover;
   color: var(--text-dark);
   min-height: 100vh;
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   position: relative;
 }
@@ -75,7 +76,7 @@ body {
   max-width: 1440px;
   min-height: 100vh;
   position: relative;
-  padding: 120px 40px 60px 40px;
+  padding: 40px 40px 60px 40px; /* Reduced top padding since topbar is now sticky */
   box-sizing: border-box;
 }
 
@@ -103,20 +104,28 @@ a:hover {
   /* Bỏ padding top vì đã có padding ở app-authenticated-bg */
 }
 
-/* Components */
 .card {
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
+  border: 4px double var(--border);
+  border-radius: 0;
   padding: 32px;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  box-shadow: var(--shadow-md);
   transition: var(--transition);
   color: var(--text-dark);
+  position: relative;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 4px; left: 4px; right: 4px; bottom: 4px;
+  border: 1px solid rgba(138, 72, 48, 0.2);
+  pointer-events: none;
 }
 
 .card:hover {
   box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
+  transform: translate(-2px, -2px);
 }
 
 .row {
@@ -136,54 +145,57 @@ a:hover {
 .select {
   width: 100%;
   padding: 12px 16px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  background: var(--surface-solid);
+  border: 2px solid var(--border);
+  border-radius: 0;
+  background: rgba(234, 208, 179, 0.4);
+  color: var(--text-dark);
   outline: none;
-  font-family: inherit;
-  font-size: 14px;
+  font-family: 'Lora', serif;
+  font-size: 16px;
+  font-weight: 500;
   transition: var(--transition);
-  box-shadow: var(--shadow-sm);
+  box-shadow: inset 2px 2px 0px rgba(44, 26, 20, 0.1);
   box-sizing: border-box;
 }
 
 .input:focus,
 .select:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 4px var(--primary-light);
-  transform: translateY(-1px);
+  border-color: var(--text-dark);
+  background: var(--surface-solid);
+  box-shadow: inset 2px 2px 0px rgba(44, 26, 20, 0.2);
 }
 
 /* Buttons */
 .btn {
-  padding: 12px 24px;
-  border-radius: 50px; /* Pill shape */
-  border: none;
-  background: var(--surface);
+  padding: 12px 28px;
+  border-radius: 0;
+  border: 2px solid var(--text-dark);
+  background: var(--surface-solid);
   color: var(--text-dark);
   cursor: pointer;
   line-height: 1.2;
-  font-weight: 600;
-  font-size: 15px;
-  font-family: 'Inter', sans-serif;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  font-weight: 800;
+  font-size: 14px;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  transition: var(--transition);
+  box-shadow: var(--shadow-md);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  letter-spacing: 0.5px;
+  letter-spacing: 2px;
 }
 
 .btn:hover:not(:disabled) {
-  background: #f8fafc;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  background: var(--surface);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
 }
 
 .btn:active:not(:disabled) {
-  transform: translateY(0);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn:disabled {
@@ -192,16 +204,13 @@ a:hover {
 }
 
 .btn.primary {
-  background: linear-gradient(180deg, var(--primary) 0%, var(--primary-hover) 100%);
-  color: #fff;
-  border-color: var(--primary-hover);
-  box-shadow: 0 2px 4px rgba(107, 162, 146, 0.3);
+  background: var(--primary);
+  color: #F2D8B3;
+  border: 2px solid var(--text-dark);
 }
 
 .btn.primary:hover:not(:disabled) {
-  background: linear-gradient(180deg, var(--primary-hover) 0%, #477768 100%);
-  border-color: #477768;
-  box-shadow: 0 4px 6px rgba(107, 162, 146, 0.4);
+  background: var(--primary-hover);
 }
 
 .btn.danger {
@@ -223,20 +232,23 @@ a:hover {
 
 .title-lg {
   font-family: var(--font-heading);
-  font-size: 28px;
+  font-size: 42px;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: 2px;
   color: var(--text-dark);
-  margin-bottom: 8px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  text-align: center;
+  text-shadow: 1px 1px 0px rgba(234, 208, 179, 0.8);
 }
 
 .title-md {
   font-family: var(--font-heading);
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
-  letter-spacing: 0;
+  letter-spacing: 1px;
   color: var(--text-dark);
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 
 hr {
@@ -301,18 +313,15 @@ hr {
 
 /* Topbar Traditional Style for Scroll Layout */
 .topbar {
-  background: transparent;
-  border-bottom: none;
-  position: absolute;
-  /* Đưa về vị trí absolute cố định trên sớ */
-  top: 240px;
-  /* Giới hạn trong vùng giấy trắng (lòng sớ), không tràn ra viền vàng */
-  left: 120px;
-  right: 120px;
+  background: var(--surface);
+  border-bottom: 4px double var(--border);
+  position: relative; /* Change from sticky to relative in case sticky acts weird in this flex layout */
   z-index: 100;
-  width: auto;
+  width: 100%;
   display: flex;
   justify-content: center;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px; /* Space between topbar and the rest of the list */
 }
 
 .topbar-inner {
@@ -320,31 +329,27 @@ hr {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 12px 32px;
-  /* Thu gọn padding để dải Taskbar nhìn thanh thoát hơn */
+  padding: 16px 32px;
   width: 100%;
-  max-width: 1200px;
-  background: rgba(255, 252, 240, 0.7);
-  backdrop-filter: blur(8px);
-  border-bottom: 2px double var(--border);
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  max-width: 1240px;
+  background: transparent;
 }
 
 .nav {
   display: flex;
-  gap: 20px;
+  gap: 32px;
   align-items: center;
 }
 
 .nav a {
+  font-family: var(--font-heading);
   font-weight: 800;
-  font-size: 15px;
-  color: #1a0f0a;
-  /* Màu nâu đen mực tàu */
+  font-size: 16px;
+  color: var(--text-dark);
+  text-transform: uppercase;
+  letter-spacing: 2px;
   position: relative;
-  text-shadow: 0.5px 0.5px 0px rgba(255, 255, 255, 0.5);
-  /* Tạo độ sắc nét trên nền giấy */
+  text-shadow: 1px 1px 0px rgba(234, 208, 179, 0.8);
 }
 
 .nav a:hover,
@@ -355,16 +360,16 @@ hr {
 .nav a::after {
   content: '';
   position: absolute;
-  bottom: -4px;
+  bottom: -6px;
   left: 0;
   width: 0;
   height: 2px;
   background: var(--primary);
   transition: var(--transition);
-  border-radius: 2px;
 }
 
-.nav a:hover::after {
+.nav a:hover::after,
+.nav a.active::after {
   width: 100%;
 }
 
@@ -403,8 +408,8 @@ hr {
 .login-v2-wrapper {
   display: flex;
   min-height: 100vh;
-  font-family: 'Inter', sans-serif;
-  background: radial-gradient(circle at top left, #e0f2fe 0%, #f0fdfa 50%, #f8fafc 100%);
+  font-family: inherit;
+  background-color: transparent; /* inherits from body */
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
@@ -417,26 +422,40 @@ hr {
 
 .login-v2-right {
   width: 100%;
-  max-width: 480px;
-  background: #ffffff;
-  border-radius: 24px;
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0,0,0,0.02);
+  max-width: 520px;
+  background: var(--surface);
+  border: 6px double var(--border);
+  box-shadow: var(--shadow-float);
   display: flex;
   flex-direction: column;
-  padding: 48px 40px;
+  padding: 64px 48px;
   position: relative;
   overflow: hidden;
+  align-items: center;
 }
 
-/* Thêm badge trang trí góc trên */
-.login-v2-right::before {
+/* Scroll unroll decoration at top/bottom instead of primary bar */
+.login-v2-right::before,
+.login-v2-right::after {
   content: "";
   position: absolute;
+  left: 0; right: 0;
+  height: 12px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--border) 0,
+    var(--border) 2px,
+    transparent 2px,
+    transparent 6px
+  );
+  border-bottom: 2px solid var(--text-dark);
+  border-top: 2px solid var(--text-dark);
+}
+.login-v2-right::before {
   top: 0;
-  left: 0;
-  right: 0;
-  height: 6px;
-  background: linear-gradient(90deg, #0ea5e9, #10b981);
+}
+.login-v2-right::after {
+  bottom: 0;
 }
 
 .login-v2-form-wrapper {
@@ -458,11 +477,15 @@ hr {
 }
 
 .login-v2-title {
-  font-size: 28px;
-  font-weight: 800;
-  color: #0f172a;
-  margin-bottom: 8px;
+  font-size: 36px;
+  font-weight: 900;
+  font-family: var(--font-heading);
+  color: var(--text-dark);
+  margin-bottom: 12px;
   text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-shadow: 2px 2px 0px rgba(234, 208, 179, 0.8);
 }
 
 .login-v2-subtitle {
@@ -486,8 +509,11 @@ hr {
 
 .login-v2-label {
   font-size: 14px;
-  font-weight: 600;
-  color: #334155;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-dark);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -498,12 +524,13 @@ hr {
 }
 
 .login-v2-input {
-  padding: 14px 18px;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 15px;
-  background: #f8fafc;
-  color: #0f172a;
+  padding: 16px 4px;
+  border: none;
+  border-bottom: 2px solid var(--text-dark);
+  font-size: 18px;
+  font-family: 'Lora', serif;
+  background: transparent;
+  color: var(--text-dark);
   transition: all 0.2s ease;
   outline: none;
   width: 100%;
@@ -511,13 +538,15 @@ hr {
 }
 
 .login-v2-input:focus {
-  border-color: #0ea5e9;
-  background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+  border-bottom-color: var(--primary);
+  background: rgba(138, 72, 48, 0.05); /* very light primary highlight */
+  box-shadow: none;
 }
 
 .login-v2-input::placeholder {
-  color: #94a3b8;
+  color: var(--muted);
+  font-family: 'Lora', serif;
+  font-style: italic;
 }
 
 .login-v2-pwd-wrap {
@@ -577,33 +606,41 @@ hr {
 }
 
 .login-v2-btn {
-  background: var(--primary);
-  color: #ffffff;
-  border: none;
-  border-radius: 12px;
-  padding: 16px;
+  background: var(--text-dark);
+  color: #F2D8B3;
+  border: 2px solid var(--text-dark);
+  padding: 18px;
   font-size: 16px;
-  font-weight: 600;
+  font-family: var(--font-heading);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 800;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 6px -1px rgba(107, 162, 146, 0.2), 0 2px 4px -1px rgba(107, 162, 146, 0.1);
-  margin-top: 12px;
+  transition: var(--transition);
+  box-shadow: var(--shadow-md);
+  margin-top: 24px;
 }
 
 .login-v2-btn:hover:not(:disabled) {
   background: var(--primary-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(107, 162, 146, 0.3), 0 4px 6px -2px rgba(107, 162, 146, 0.15);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.login-v2-btn:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .login-v2-btn:disabled {
   opacity: 0.65;
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }
 
 .login-v2-spinner {
